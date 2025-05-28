@@ -141,3 +141,6 @@ tdnf install -y libnvidia-nscq
 # cleanup downloaded files
 rm -rf *.run *tar.gz *.rpm
 rm -rf -- */
+
+echo "Disable NVIDIA persistenced"
+systemctl disable nvidia-persistenced
