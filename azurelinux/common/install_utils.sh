@@ -68,7 +68,12 @@ tdnf install -y numactl \
     nano \
     device-mapper-multipath \
     mdadm \
-    ca-certificates-tools
+    ca-certificates-tools \
+    git \
+    gtest-devel \
+    gmock-devel \
+    hwloc-devel \
+    rsyslog
 
 # Disable kernel updates
 echo "exclude=kernel* kmod*" | tee -a /etc/dnf/dnf.conf
@@ -84,6 +89,11 @@ echo kmod >> /etc/tdnf/locks.d/kernel.conf
 # Disable dependencies on kernel core
 #sed -i "$ s/$/ shim*/" /etc/dnf/dnf.conf
 #sed -i "$ s/$/ grub2*/" /etc/dnf/dnf.conf
+
+# Enable kernel log messages to file as per HPC requirement.
+sed -i 's/^\#kern\.\*.*/kern\.\*                                \-\/var\/log\/kern.log/' /etc/rsyslog.conf
+# Add kern.log from rsyslog to logrotate
+sed -i 's#/var/log/maillog#/var/log/maillog\n/var/log/kern.log#' /etc/logrotate.d/rsyslog
 
 ## Install dkms
 tdnf install -y dkms
