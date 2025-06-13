@@ -70,11 +70,10 @@ tdnf install -y numactl \
     mdadm \
     ca-certificates-tools \
     git \
+    gtest-devel \
+    gmock-devel \
+    hwloc-devel \
     rsyslog
-
-    # gtest-devel \
-    # gmock-devel \
-    # hwloc-devel \
 
 # Disable kernel updates
 echo "exclude=kernel* kmod*" | tee -a /etc/dnf/dnf.conf
